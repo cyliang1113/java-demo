@@ -7,9 +7,9 @@ public class Demo01 {
 
 		thread.start();
 
-		Thread.sleep(20000);
+		Thread.sleep(2000);
 		thread.interrupt();
-		Thread.sleep(20000);
+		Thread.sleep(2000);
 	}
 
 	static class Thread1 extends Thread {
