@@ -1,4 +1,4 @@
-package cn.leo.java.demo.gc;
+package cn.leo.java.demo.gc.heap;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,7 +7,7 @@ import java.util.List;
  * -Xms10m -Xmx10m -XX:SurvivorRatio=8 -XX:+PrintGCDetails
  * -XX:+UseConcMarkSweepGC
  * -Xms20m -Xmx20m -Xmn10m -XX:SurvivorRatio=8 -XX:+PrintGCDetails
- * -Xms20m -Xmx20m -Xmn5m -XX:+PrintGCDetails
+ * -Xms20m -Xmx20m  -XX:+PrintGCDetails
  * 
  * @author leo
  */
