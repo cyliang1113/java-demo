@@ -5,7 +5,7 @@ import java.util.List;
 
 /**
  * -Xms10m -Xmx10m -XX:SurvivorRatio=8 -XX:+PrintGCDetails
- * -XX:+UseConcMarkSweepGC
+ * -XX:+UseConcMarkSweepGC 使用CMS垃圾收集器
  * -Xms20m -Xmx20m -Xmn10m -XX:SurvivorRatio=8 -XX:+PrintGCDetails
  * -Xms20m -Xmx20m  -XX:+PrintGCDetails
  * 
