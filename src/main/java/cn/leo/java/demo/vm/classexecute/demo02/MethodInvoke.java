@@ -1,7 +1,7 @@
 package cn.leo.java.demo.vm.classexecute.demo02;
 
 public class MethodInvoke {
-    private void sss(){
+    private void sss(int i, String s, int j, int k, Object o){
         System.out.println("sss");
     }
 
@@ -11,6 +11,6 @@ public class MethodInvoke {
 
     public void ggg() {
         System.out.println("ggg");
-        sss();
+        sss(0, "000", 1, 3, null);
     }
 }
