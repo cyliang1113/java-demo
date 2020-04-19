@@ -23,7 +23,10 @@ public class Client {
 				System.out.print("请输入:");
 				String line = scanner.nextLine();
 				if (line != null) {
-					outputStream.write(line.getBytes());
+					Datagram1.Body body = new Datagram1.Body(line);
+					Datagram1 datagram1 = new Datagram1(body);
+					byte[] bytes = datagram1.toByteArr();
+					outputStream.write(bytes);
 					outputStream.flush();
 				}
 			}
