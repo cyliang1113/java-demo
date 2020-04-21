@@ -5,7 +5,7 @@ import java.io.OutputStream;
 import java.net.Socket;
 import java.util.Scanner;
 
-public class Client {
+public class Client1 {
 
 	public static void main(String[] args) {
 		Socket socket = null;
