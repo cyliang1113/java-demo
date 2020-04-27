@@ -11,10 +11,10 @@ public class Client3 {
 	public static void main(String[] args) {
 		Socket socket = null;
 		OutputStream outputStream = null;
-//		String host = "192.168.216.129";
-		String host = "127.0.0.1";
+		String host = "192.168.216.129";
+//		String host = "127.0.0.1";
 
-		for (int i = 0; i < 3; i++) {
+		for (int i = 0; i < 70; i++) {
 
 			new Thread(new Runnable() {
 				@Override
@@ -36,7 +36,7 @@ public class Client3 {
 								outputStream.write(line.getBytes());
 								outputStream.flush();
 							}
-							Thread.sleep(2000);
+							Thread.sleep(60000);
 						}
 					} catch (IOException e) {
 						e.printStackTrace();

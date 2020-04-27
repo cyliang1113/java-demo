@@ -10,8 +10,8 @@ public class Client {
 	public static void main(String[] args) {
 		Socket socket = null;
 		OutputStream outputStream = null;
-//		String host = "192.168.216.129";
-		String host = "127.0.0.1";
+		String host = "192.168.216.129";
+//		String host = "127.0.0.1";
 		try {
 			socket = new Socket(host, 8899); /* 当client执行完这一步时, server已经执行了inputStream.read(buf),
 												              如果这时client停在这里, 那么server一直都在read数据,
