@@ -4,5 +4,5 @@
 /.project
 /com/sun/proxy/$Proxy0.class
 /.idea/
-/java-demo-maven.iml
-/java-demo.iml
+/*.iml
+/cn/leo/java/demo/vm/*
