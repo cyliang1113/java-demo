@@ -1,4 +1,4 @@
-package cn.leo.java.demo.concurrent;
+package cn.leo.java.demo.concurrent.atomic;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -13,5 +13,7 @@ public class Demo01 {
         System.out.println(i1); //-2147483648
         i1 = atomicInteger.incrementAndGet();
         System.out.println(i1); //-2147483647
+        i1 = atomicInteger.addAndGet(2147483647);
+        System.out.println(i1); //0
     }
 }
