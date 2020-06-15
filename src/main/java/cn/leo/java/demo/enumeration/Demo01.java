@@ -1,4 +1,4 @@
-package cn.leo.java.demo.meiju;
+package cn.leo.java.demo.enumeration;
 
 /**
  * 

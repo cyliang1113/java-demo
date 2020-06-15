@@ -1,8 +1,8 @@
-package cn.leo.java.demo.xuliehua;
+package cn.leo.java.demo.serialize;
 
 import java.io.*;
 
-public class Demo01 {
+public class Demo02 {
     public static void main(String[] args) throws IOException, ClassNotFoundException {
 
         Person tom = new Person("Tom", 25);
