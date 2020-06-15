@@ -1,38 +1,38 @@
-package cn.leo.java.demo.nio;
+package cn.leo.java.demo.nio.file;
 
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
 
-public class ChannelWriteDemo {
+public class ChannelReadDemo {
 	public static void main(String[] args) {
-		FileOutputStream fos = null;
+		FileInputStream fis = null;
 
 		try {
 			ByteBuffer buffer = ByteBuffer.allocate(1024);
 
-			fos = new FileOutputStream("D:\\ChannelWriteDemo.txt");
+			fis = new FileInputStream("D:\\knn.txt");
 
-			FileChannel channel = fos.getChannel();
+			FileChannel channel = fis.getChannel();
 
 			buffer.clear();
-
-			buffer.put("hello nio channell write.".getBytes());
+			channel.read(buffer);
 
 			buffer.flip();
 
-			channel.write(buffer);
-
+			for (int i = buffer.position(); i < buffer.limit(); i++) {
+				System.out.print((char) buffer.get(i));
+			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {
-			if (fos != null) {
+			if (fis != null) {
 				try {
-					fos.close();
+					fis.close();
 				} catch (IOException e) {
 					e.printStackTrace();
 				}

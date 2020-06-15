@@ -1,4 +1,4 @@
-package cn.leo.java.demo.nio;
+package cn.leo.java.demo.nio.buffer;
 
 import java.nio.ByteBuffer;
 
