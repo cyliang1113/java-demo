@@ -8,59 +8,33 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.apache.poi.xwpf.usermodel.XWPFDocument;
 
 import java.io.*;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class BL {
-    public static void main(String[] args) throws FileNotFoundException {
-        File file = new File("C:\\Users\\youliang.chen\\Desktop\\新建文件夹\\营业执照解押版本统计-更新至100本后.xlsx");
-
-        String fileName = file.getName();
-        ExcelFormat excelFormat = getExcelFormat(fileName);
-        InputStream inputStream = new FileInputStream(file);
-
-        Workbook excelWorkbook = getExcelWorkbook(inputStream, excelFormat);
-        Sheet sheet = excelWorkbook.getSheetAt(0);
-        for (int rowNum = 1; rowNum <= sheet.getLastRowNum(); rowNum++) {
-            Row row = sheet.getRow(rowNum);
-            if (row == null) {
-                continue;
-            }
-            String agent_name = excelCellTransform(row.getCell(0)).toString().trim();
-            String province = excelCellTransform(row.getCell(3)).toString().trim();
-            String city = excelCellTransform(row.getCell(4)).toString().trim();
-            String type = excelCellTransform(row.getCell(7)).toString().trim();
-            String bl_code = null;
-            if ("新证".equals(type)) {
-                String oV = excelCellTransform(row.getCell(8)).toString().trim();
-                String[] split = oV.split("/");
-                bl_code = "zhang-" + split[0] + "-" + split[1];
-            } else {
-                bl_code = excelCellTransform(row.getCell(8)).toString().trim();
-            }
-            String sql = "insert into orders.order_settle_agent_bl(agent_name, agent_city, agent_province, bl_code) values('"+agent_name+"', '"+city+"', '"+province+"', '"+bl_code+"');";
-            System.out.println(sql);
+public class SettleDoc {
+    public static void main(String[] args) throws Exception {
+        String dir = "D:\\settle";
+        File file = new File(dir);
+        String[] files = file.list();
+        XWPFDocument xwpfDocument1 = OfficeUtils.genWordWithParams(dir + "\\" + files[0], null);
+        for (int i = 1; i < files.length; i++) {
+            XWPFDocument xwpfDocument2 = OfficeUtils.genWordWithParams(dir + "\\" + files[i], null);
+            OfficeUtils.mergeWord(xwpfDocument1, xwpfDocument2);
         }
-//        blUrl();
+        OfficeUtils.wordSaveToDisk(xwpfDocument1, new File("C:\\Users\\youliang.chen\\Desktop\\12121.docx"));
 
-    }
-
-    public static void blUrl(){
-        String urlPre = "https://prod-zhyq-oss.oss-cn-hangzhou.aliyuncs.com/order_settle_agent_bl/20200721/";
-        String foldStr = "C:\\Users\\youliang.chen\\Desktop\\新建文件夹\\all";
-        File fold = new File(foldStr);
-        for (String name : fold.list()) {
-            int i = name.indexOf(".");
-            String nn = name.substring(0, i);
-            String url = urlPre + name;
-            String sql = "insert into orders.order_settle_bl(bl_code, bl, bl_url) values('"+ nn + "', '" + nn + "', '" + url + "');";
-            System.out.println(sql);
-
-        }
-
+//        String f1 = "C:\\Users\\youliang.chen\\Desktop\\周口地区委托书.docx";
+//        String f2 = "C:\\Users\\youliang.chen\\Desktop\\东莞地区委托书.docx";
+//        XWPFDocument xwpfDocument1 = OfficeUtils.genWordWithParams(f1, null);
+//        XWPFDocument xwpfDocument2 = OfficeUtils.genWordWithParams(f2, null);
+//        XWPFDocument xwpfDocument3 = OfficeUtils.genWordWithParams(f1, null);
+//        OfficeUtils.mergeWord(xwpfDocument1, xwpfDocument2);
+//        OfficeUtils.mergeWord(xwpfDocument1, xwpfDocument3);
+//        OfficeUtils.wordSaveToDisk(xwpfDocument1, new File("C:\\Users\\youliang.chen\\Desktop\\12121.docx"));
     }
 
     public enum ExcelFormat{

@@ -16,61 +16,65 @@ public class Demo03 {
 
 	}
 
-}
+	private static class MyThread1 extends Thread {
+		private PrintMsg pm;
 
-class MyThread1 extends Thread {
-	private PrintMsg pm;
-
-	public MyThread1(PrintMsg pm) {
-		this.pm = pm;
-	}
-
-	@Override
-	public void run() {
-		pm.printChar();
-	}
-}
-
-class PrintMsg {
-	private boolean printNum = true;
-	private Object lock = new Object();
-
-	public void printNum() {
-		for (int s = 1; s <= 5; s++) {
-			synchronized (lock) {
-				if (!printNum) {
-					try {
-						lock.wait();
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-					}
-				}
-				for (int i = 1; i <= 3; i++) {
-					System.out.println(i);
-				}
-				printNum = false;
-				lock.notify();
-			}
+		public MyThread1(PrintMsg pm) {
+			this.pm = pm;
 		}
 
+		@Override
+		public void run() {
+			pm.printChar();
+		}
 	}
 
-	public void printChar() {
-		for (int s = 1; s <= 5; s++) {
-			synchronized (lock) {
-				if (printNum) {
-					try {
-						lock.wait();
-					} catch (InterruptedException e) {
-						e.printStackTrace();
+	private static class PrintMsg {
+		private boolean printNum = true;
+		private Object lock = new Object();
+
+		public void printNum() {
+			for (int s = 1; s <= 5; s++) {
+				synchronized (lock) {
+					if (!printNum) {
+						try {
+							lock.wait();
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+						}
 					}
+					for (int i = 1; i <= 3; i++) {
+						System.out.println(i);
+					}
+					printNum = false;
+					lock.notify();
 				}
-				for (int i = 0; i <= 2; i++) {
-					System.out.println((char) ('a' + i));
+			}
+
+		}
+
+		public void printChar() {
+			for (int s = 1; s <= 5; s++) {
+				synchronized (lock) {
+					if (printNum) {
+						try {
+							lock.wait();
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+						}
+					}
+					for (int i = 0; i <= 2; i++) {
+						System.out.println((char) ('a' + i));
+					}
+					printNum = true;
+					lock.notify();
 				}
-				printNum = true;
-				lock.notify();
 			}
 		}
 	}
+
 }
+
+
+
+
