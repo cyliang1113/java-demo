@@ -14,9 +14,9 @@ import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class PoiExcel {
+public class ExcelPoi {
     public static void main(String[] args) throws FileNotFoundException {
-        File file = new File("C:\\Users\\youliang.chen\\Desktop\\新建文件夹\\营业执照解押版本统计-更新至100本后.xlsx");
+        File file = new File("C:\\Users\\youliang.chen\\Desktop\\car_no.xlsx");
 
         String fileName = file.getName();
         ExcelFormat excelFormat = getExcelFormat(fileName);
@@ -29,19 +29,20 @@ public class PoiExcel {
             if (row == null) {
                 continue;
             }
-            String agent_name = excelCellTransform(row.getCell(0)).toString().trim();
-            String province = excelCellTransform(row.getCell(3)).toString().trim();
-            String city = excelCellTransform(row.getCell(4)).toString().trim();
-            String type = excelCellTransform(row.getCell(7)).toString().trim();
-            String bl_code = null;
-            if ("新证".equals(type)) {
-                String oV = excelCellTransform(row.getCell(8)).toString().trim();
-                String[] split = oV.split("/");
-                bl_code = "zhang-" + split[0] + "-" + split[1];
-            } else {
-                bl_code = excelCellTransform(row.getCell(8)).toString().trim();
+            String prefix = excelCellTransform(row.getCell(1)).toString().trim();
+            String statusName = excelCellTransform(row.getCell(3)).toString().trim();
+
+            String status = null;
+            if ("可抵押城市".equals(statusName)) {
+                status = "can";
+            } else if ("不可抵押城市".equals(statusName)) {
+                status = "cannot";
+            } else{
+                status = "part";
             }
-            String sql = "insert into orders.order_settle_agent_bl(agent_name, agent_city, agent_province, bl_code) values('"+agent_name+"', '"+city+"', '"+province+"', '"+bl_code+"');";
+
+
+            String sql = "update zhyq.car_no_location set pledge_status = '" + status + "' where car_no_prefix = '" + prefix + "';";
             System.out.println(sql);
         }
 //        blUrl();
